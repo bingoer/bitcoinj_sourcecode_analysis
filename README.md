@@ -5,13 +5,15 @@ fork date:2018-03-23
 
 同时这是一份我自己保存用来进行bitcoinj源码分析的opensource。
 
-分析的源码新的体会都全部内嵌在源码中间，方便边看边分析。
+能力有限，肯定会有很多地方分析错误，争取错误越来越少。
 
-一个区块链爱好者，在读研究僧。
+分析的源码和心得体会都全部内嵌在源码中间，方便边看边分析。
+
+一个区块链爱好者，欢迎参与PR。
 
 联系方式  github.com/bingoer/
   
-  email: 364350794@qq.com
+   email: 364350794@qq.com
  
 [![Build Status](https://travis-ci.org/bitcoinj/bitcoinj.png?branch=master)](https://travis-ci.org/bitcoinj/bitcoinj)   [![Coverage Status](https://coveralls.io/repos/bitcoinj/bitcoinj/badge.png?branch=master)](https://coveralls.io/r/bitcoinj/bitcoinj?branch=master) 
 

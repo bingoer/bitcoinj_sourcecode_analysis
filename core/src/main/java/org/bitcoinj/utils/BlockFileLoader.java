@@ -48,12 +48,19 @@ import java.util.NoSuchElementException;
  * }
  * }</p>
  */
+
+/**
+ * 直接从本地已有的比特币数据库中读区块的工具。（如果有现成的区块数据，读肯定比重新去同步要快很多）
+ *
+ */
+
 public class BlockFileLoader implements Iterable<Block>, Iterator<Block> {
     /**
      * Gets the list of files which contain blocks from Bitcoin Core.
      */
     public static List<File> getReferenceClientBlockFileList() {
         String defaultDataDir;
+        //各种操作系统默认的比特币数据路径
         if (Utils.isWindows()) {
             defaultDataDir = System.getenv("APPDATA") + "\\.bitcoin\\blocks\\";
         } else if (Utils.isMac()) {
@@ -77,6 +84,7 @@ public class BlockFileLoader implements Iterable<Block>, Iterator<Block> {
     private Iterator<File> fileIt;
     private FileInputStream currentFileStream = null;
     private Block nextBlock = null;
+    //下一篇分析NetworkParameters。
     private NetworkParameters params;
     
     public BlockFileLoader(NetworkParameters params, List<File> files) {
@@ -131,6 +139,10 @@ public class BlockFileLoader implements Iterable<Block>, Iterator<Block> {
             try {
                 int nextChar = currentFileStream.read();
                 while (nextChar != -1) {
+                    //getPacketMagic()：long，网络上标识数据包开始的头字节
+                    /**
+                     * 这一段操作不太明白，应该是按照一定的格式去读字符。
+                     * */
                     if (nextChar != ((params.getPacketMagic() >>> 24) & 0xff)) {
                         nextChar = currentFileStream.read();
                         continue;
@@ -154,6 +166,7 @@ public class BlockFileLoader implements Iterable<Block>, Iterator<Block> {
                 bytes = new byte[(int) size];
                 currentFileStream.read(bytes, 0, (int) size);
                 try {
+                    //读取的数据还原称block
                     nextBlock = params.getDefaultSerializer().makeBlock(bytes);
                 } catch (ProtocolException e) {
                     nextBlock = null;
