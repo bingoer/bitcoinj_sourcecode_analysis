@@ -1,1 +1,1 @@
-001. BlockFileLoader类中从网络中读取数据并还原称block的过程还要继续研究。
+001. BlockFileLoader类中从网络中读取数据并还原成block区块的过程还要继续研究。
