@@ -1,3 +1,17 @@
+
+这是一份fork自github.com/bitcoinj/bitcoinj  master 的源码。
+
+fork date:2018-03-23
+
+同时这是一份我自己保存用来进行bitcoinj源码分析的opensource。
+
+分析的源码新的体会都全部内嵌在源码中间，方便边看边分析。
+
+一个区块链爱好者，在读研究僧。
+
+联系方式  github.com/bingoer/
+         364350794@qq.com
+ 
 [![Build Status](https://travis-ci.org/bitcoinj/bitcoinj.png?branch=master)](https://travis-ci.org/bitcoinj/bitcoinj)   [![Coverage Status](https://coveralls.io/repos/bitcoinj/bitcoinj/badge.png?branch=master)](https://coveralls.io/r/bitcoinj/bitcoinj?branch=master) 
 
 [![Visit our IRC channel](https://kiwiirc.com/buttons/irc.freenode.net/bitcoinj.png)](https://kiwiirc.com/client/irc.freenode.net/bitcoinj)
