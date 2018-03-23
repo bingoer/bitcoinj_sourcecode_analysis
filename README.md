@@ -10,7 +10,8 @@ fork date:2018-03-23
 一个区块链爱好者，在读研究僧。
 
 联系方式  github.com/bingoer/
-         364350794@qq.com
+  
+  email: 364350794@qq.com
  
 [![Build Status](https://travis-ci.org/bitcoinj/bitcoinj.png?branch=master)](https://travis-ci.org/bitcoinj/bitcoinj)   [![Coverage Status](https://coveralls.io/repos/bitcoinj/bitcoinj/badge.png?branch=master)](https://coveralls.io/r/bitcoinj/bitcoinj?branch=master) 
 
