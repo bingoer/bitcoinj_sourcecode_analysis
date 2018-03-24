@@ -60,10 +60,17 @@ import static com.google.common.base.Preconditions.*;
  * if anything goes wrong during startup - you should probably handle it and use {@link Exception#getCause()} to figure
  * out what went wrong more precisely. Same thing if you just use the {@link #startAsync()} method.</p>
  */
+
+/**
+ * 手机端钱包工具包，提供常见的钱包操作方法。
+ * 设置spv钱包，spv也需要同步和等待。
+ *
+ * */
 public class WalletAppKit extends AbstractIdleService {
     protected static final Logger log = LoggerFactory.getLogger(WalletAppKit.class);
 
     protected final String filePrefix;
+    //
     protected final NetworkParameters params;
     protected volatile BlockChain vChain;
     protected volatile BlockStore vStore;

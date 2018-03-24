@@ -31,6 +31,11 @@ import java.util.concurrent.ExecutionException;
 /**
  * A program that sends a transaction with the specified fee and measures how long it takes to confirm.
  */
+
+/**
+ * 比特币是按照kB交易字节为单位收取交易费的。收费标准参考链接 http://www.8btc.com/making-sense-of-bitcoin-transaction-fee
+ * 比特币单位  1btc=100 millions satoshi
+ * */
 public class TestFeeLevel {
 
     private static final MainNetParams PARAMS = MainNetParams.get();
@@ -45,6 +50,7 @@ public class TestFeeLevel {
         }
 
         Coin feeRateToTest = Coin.valueOf(Long.parseLong(args[0]));
+
         System.out.println("Fee rate to test is " + feeRateToTest.toFriendlyString() + "/kB");
 
         kit = new WalletAppKit(PARAMS, new File("."), "testfeelevel");
@@ -64,11 +70,12 @@ public class TestFeeLevel {
 
         kit.peerGroup().setMaxConnections(25);
 
+        //x.compareTo(y)  x<y return -1,   x=y return 0,  x>y return 1;
         if (kit.wallet().getBalance().compareTo(feeRateToTest) < 0) {
             System.out.println("Send some coins to receive address and wait for it to confirm ...");
             kit.wallet().getBalanceFuture(feeRateToTest, Wallet.BalanceType.AVAILABLE).get();
         }
-
+        //获取最长链的区块高度(公认最优链)
         int heightAtStart = kit.chain().getBestChainHeight();
         System.out.println("Height at start is " + heightAtStart);
 
