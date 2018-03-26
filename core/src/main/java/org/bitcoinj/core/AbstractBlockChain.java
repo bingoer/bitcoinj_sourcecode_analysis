@@ -336,6 +336,7 @@ public abstract class AbstractBlockChain {
      * 
      * @throws BlockStoreException
      *             if the operation fails or is unsupported.
+     *BlockStore回滚到指定的区块高度
      */
     protected abstract void rollbackBlockStore(int height) throws BlockStoreException;
 
