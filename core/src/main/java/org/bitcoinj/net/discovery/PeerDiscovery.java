@@ -34,8 +34,10 @@ public interface PeerDiscovery {
      * Returns an array of addresses. This method may block.
      * @param services Required services as a bitmask, e.g. {@link VersionMessage#NODE_NETWORK}.
      */
+    //获取现在可以通讯的节点地址
     InetSocketAddress[] getPeers(long services, long timeoutValue, TimeUnit timeoutUnit) throws PeerDiscoveryException;
 
     /** Stops any discovery in progress when we want to shut down quickly. */
+    //关闭通讯
     void shutdown();
 }
