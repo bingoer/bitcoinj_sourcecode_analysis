@@ -1,2 +1,13 @@
 001. BlockFileLoader类中从网络中读取数据并还原成block区块的过程还要继续研究。
-002. 
+002.
+
+任务安排：
+	03.26-03.31  分析完 package org.bitcoinj.core  bitcoinj的核心模块
+	
+	04.01-04.04 分析完  package org.bitcoinj.core.listeners  core的监听器模块
+			   +    package org.bitcoin
+			   +    package org.bitcoin.crawler
+			   +	package org.bitcoin.paymentchannel
+			   +	package	org.bitcoin.protocol.payments
+	
+	04.08-
