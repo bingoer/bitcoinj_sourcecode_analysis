@@ -26,6 +26,7 @@ import org.bitcoinj.core.VersionMessage;
  * A PeerDiscovery object is responsible for finding addresses of other nodes in the Bitcoin P2P network. Note that
  * the addresses returned may or may not be accepting connections.
  */
+//用来寻找P2P网络中的其他节点的接口。
 public interface PeerDiscovery {
     // TODO: Flesh out this interface a lot more.
 
