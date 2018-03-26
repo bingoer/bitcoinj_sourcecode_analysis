@@ -75,7 +75,7 @@ public class TestFeeLevel {
             System.out.println("Send some coins to receive address and wait for it to confirm ...");
             kit.wallet().getBalanceFuture(feeRateToTest, Wallet.BalanceType.AVAILABLE).get();
         }
-        //获取最长链的区块高度(公认最优链)
+        //获取最长链的区块高度(主链)
         int heightAtStart = kit.chain().getBestChainHeight();
         System.out.println("Height at start is " + heightAtStart);
 
