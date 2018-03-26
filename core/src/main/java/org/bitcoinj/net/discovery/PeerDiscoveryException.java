@@ -16,6 +16,9 @@
 
 package org.bitcoinj.net.discovery;
 
+/**
+ * 自定义定义节点发现的异常类
+ * */
 public class PeerDiscoveryException extends Exception {
     private static final long serialVersionUID = -2863411151549391392L;
 
@@ -27,6 +30,7 @@ public class PeerDiscoveryException extends Exception {
         super(message);
     }
 
+   
     public PeerDiscoveryException(Throwable arg0) {
         super(arg0);
     }

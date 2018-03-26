@@ -102,6 +102,7 @@ public class Utils {
         out[offset + 2] = (byte) (0xFF & (val >> 16));
         out[offset + 3] = (byte) (0xFF & (val >> 24));
     }
+    
 
     /** Write 4 bytes to the byte array (starting at the offset) as unsigned 32-bit integer in big endian format. */
     public static void uint32ToByteArrayBE(long val, byte[] out, int offset) {
