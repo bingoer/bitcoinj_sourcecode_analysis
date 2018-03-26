@@ -77,6 +77,11 @@ import static com.google.common.base.Preconditions.*;
  * <p>Every so often the block chain passes a difficulty transition point. At that time, all the blocks in the last
  * 2016 blocks are examined and a new difficulty target is calculated from them.</p>
  */
+/***
+ * 抽象的blockchain，主要有两个子类：BlockChain和FullPrunedBlockChain。
+ * 其中blockchain类更适合称为spvblockchain，主要实现的是spv模式的blockchain
+ * fullprunedblockchain和H2FullPrunedBlockStore主要一起实现比特币的完全验证
+ * */
 public abstract class AbstractBlockChain {
     private static final Logger log = LoggerFactory.getLogger(AbstractBlockChain.class);
     protected final ReentrantLock lock = Threading.lock("blockchain");
@@ -92,6 +97,7 @@ public abstract class AbstractBlockChain {
      * greater work than the one obtained by following this one down. In that case a reorganize is triggered,
      * potentially invalidating transactions in our wallet.
      */
+    //不停的追踪主链，因为链可能会不停的分叉，我们始终要追踪主链（长度最长的那条链）
     protected StoredBlock chainHead;
 
     // TODO: Scrap this and use a proper read/write for all of the block chain objects.
@@ -107,6 +113,7 @@ public abstract class AbstractBlockChain {
     private final CopyOnWriteArrayList<ListenerRegistration<TransactionReceivedInBlockListener>> transactionReceivedListeners;
 
     // Holds a block header and, optionally, a list of tx hashes or block's transactions
+    //孤块。这种块产生的原因是因为几乎同时产生了多个新区块（其实就是分叉）。
     class OrphanBlock {
         final Block block;
         final List<Sha256Hash> filteredTxHashes;
@@ -147,6 +154,7 @@ public abstract class AbstractBlockChain {
     public AbstractBlockChain(Context context, List<? extends Wallet> wallets,
                               BlockStore blockStore) throws BlockStoreException {
         this.blockStore = blockStore;
+        //代表的是主链的存储
         chainHead = blockStore.getChainHead();
         log.info("chain head is at height {}:\n{}", chainHead.getHeight(), chainHead.getHeader());
         this.params = context.getParams();
@@ -168,10 +176,15 @@ public abstract class AbstractBlockChain {
      * have never been in use, or if the wallet has been loaded along with the BlockChain. Note that adding multiple
      * wallets is not well tested!
      */
+    /**
+     * 在链上增加一个浅薄啊
+     * */
     public final void addWallet(Wallet wallet) {
+        //为该钱包设置各种侦听器
         addNewBestBlockListener(Threading.SAME_THREAD, wallet);
         addReorganizeListener(Threading.SAME_THREAD, wallet);
         addTransactionReceivedListener(Threading.SAME_THREAD, wallet);
+
         int walletHeight = wallet.getLastBlockSeenHeight();
         int chainHeight = getBestChainHeight();
         if (walletHeight != chainHeight) {
@@ -192,6 +205,9 @@ public abstract class AbstractBlockChain {
         }
     }
 
+    /**
+     * 移除链上的钱包，只要移除设置在该钱包上的各种侦听器即可。
+     * */
     /** Removes a wallet from the chain. */
     public void removeWallet(Wallet wallet) {
         removeNewBestBlockListener(wallet);
@@ -293,10 +309,12 @@ public abstract class AbstractBlockChain {
     /**
      * Adds/updates the given {@link Block} with the block store.
      * This version is used when the transactions have not been verified.
+     * spv其实验证的只是支付，并不是验证交易。只是验证这笔交易是否发生过，被确认过而已。
      * @param storedPrev The {@link StoredBlock} which immediately precedes block.
      * @param block The {@link Block} to add/update.
      * @return the newly created {@link StoredBlock}
      */
+    //把新区块block存入
     protected abstract StoredBlock addToBlockStore(StoredBlock storedPrev, Block block)
             throws BlockStoreException, VerificationException;
     
