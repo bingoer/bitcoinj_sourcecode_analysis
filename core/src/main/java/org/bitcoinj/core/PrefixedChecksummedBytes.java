@@ -30,81 +30,89 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * <p>
- * The following format is often used to represent some type of data (e.g. key or hash of key):
+ * The following format is often used to represent some type of data (e.g. key
+ * or hash of key):
  * </p>
  * 
  * <pre>
  * [prefix] [data bytes] [checksum]
  * </pre>
  * <p>
- * and the result is then encoded with some variant of base. This format is most commonly used for addresses and private
- * keys exported using Bitcoin Core's dumpprivkey command.
+ * and the result is then encoded with some variant of base. This format is most
+ * commonly used for addresses and private keys exported using Bitcoin Core's
+ * dumpprivkey command.
  * </p>
  */
-public abstract class PrefixedChecksummedBytes implements Serializable, Cloneable, Comparable<PrefixedChecksummedBytes> {
-    protected final transient NetworkParameters params;
-    protected final byte[] bytes;
+//一个工具类
+public abstract class PrefixedChecksummedBytes
+		implements Serializable, Cloneable, Comparable<PrefixedChecksummedBytes> {
+	protected final transient NetworkParameters params;
+	protected final byte[] bytes;
 
-    protected PrefixedChecksummedBytes(NetworkParameters params, byte[] bytes) {
-        this.params = checkNotNull(params);
-        this.bytes = checkNotNull(bytes);
-    }
+	protected PrefixedChecksummedBytes(NetworkParameters params, byte[] bytes) {
+		this.params = checkNotNull(params);
+		this.bytes = checkNotNull(bytes);
+	}
 
-    /**
-     * @return network this data is valid for
-     */
-    public final NetworkParameters getParameters() {
-        return params;
-    }
+	/**
+	 * @return network this data is valid for
+	 */
+	public final NetworkParameters getParameters() {
+		return params;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(params, Arrays.hashCode(bytes));
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(params, Arrays.hashCode(bytes));
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PrefixedChecksummedBytes other = (PrefixedChecksummedBytes) o;
-        return this.params.equals(other.params) && Arrays.equals(this.bytes, other.bytes);
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		PrefixedChecksummedBytes other = (PrefixedChecksummedBytes) o;
+		return this.params.equals(other.params) && Arrays.equals(this.bytes, other.bytes);
+	}
 
-    /**
-     * This implementation narrows the return type to {@link PrefixedChecksummedBytes}
-     * and allows subclasses to throw {@link CloneNotSupportedException} even though it
-     * is never thrown by this implementation.
-     */
-    @Override
-    public PrefixedChecksummedBytes clone() throws CloneNotSupportedException {
-        return (PrefixedChecksummedBytes) super.clone();
-    }
+	/**
+	 * This implementation narrows the return type to
+	 * {@link PrefixedChecksummedBytes} and allows subclasses to throw
+	 * {@link CloneNotSupportedException} even though it is never thrown by this
+	 * implementation.
+	 */
+	@Override
+	public PrefixedChecksummedBytes clone() throws CloneNotSupportedException {
+		return (PrefixedChecksummedBytes) super.clone();
+	}
 
-    /**
-     * This implementation uses an optimized Google Guava method to compare {@code bytes}.
-     */
-    @Override
-    public int compareTo(PrefixedChecksummedBytes o) {
-        int result = this.params.getId().compareTo(o.params.getId());
-        return result != 0 ? result : UnsignedBytes.lexicographicalComparator().compare(this.bytes, o.bytes);
-    }
+	/**
+	 * This implementation uses an optimized Google Guava method to compare
+	 * {@code bytes}.
+	 */
+	@Override
+	public int compareTo(PrefixedChecksummedBytes o) {
+		int result = this.params.getId().compareTo(o.params.getId());
+		return result != 0 ? result : UnsignedBytes.lexicographicalComparator().compare(this.bytes, o.bytes);
+	}
 
-    // Java serialization
+	// Java serialization
 
-    private void writeObject(ObjectOutputStream out) throws IOException {
-        out.defaultWriteObject();
-        out.writeUTF(params.getId());
-    }
+	private void writeObject(ObjectOutputStream out) throws IOException {
+		out.defaultWriteObject();
+		out.writeUTF(params.getId());
+	}
 
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
-        try {
-            Field paramsField = PrefixedChecksummedBytes.class.getDeclaredField("params");
-            paramsField.setAccessible(true);
-            paramsField.set(this, checkNotNull(NetworkParameters.fromID(in.readUTF())));
-            paramsField.setAccessible(false);
-        } catch (NoSuchFieldException | IllegalAccessException x) {
-            throw new RuntimeException(x);
-        }
-    }
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+		in.defaultReadObject();
+		try {
+			Field paramsField = PrefixedChecksummedBytes.class.getDeclaredField("params");
+			paramsField.setAccessible(true);
+			paramsField.set(this, checkNotNull(NetworkParameters.fromID(in.readUTF())));
+			paramsField.setAccessible(false);
+		} catch (NoSuchFieldException | IllegalAccessException x) {
+			throw new RuntimeException(x);
+		}
+	}
 }
