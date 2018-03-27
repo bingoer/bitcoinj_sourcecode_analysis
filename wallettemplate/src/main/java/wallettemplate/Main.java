@@ -52,12 +52,12 @@ public class Main extends Application {
 
     public static WalletAppKit bitcoin;
     public static Main instance;
-
     private StackPane uiStack;
     private Pane mainUI;
     public MainController controller;
     public NotificationBarPane notificationBar;
     public Stage mainWindow;
+
 
     @Override
     public void start(Stage mainWindow) throws Exception {
