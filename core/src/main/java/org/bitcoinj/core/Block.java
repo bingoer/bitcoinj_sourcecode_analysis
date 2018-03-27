@@ -56,6 +56,7 @@ public class Block extends Message {
     private static final Logger log = LoggerFactory.getLogger(Block.class);
 
     /** How many bytes are required to represent a block header WITHOUT the trailing 00 length byte. */
+    	//区块头80字节大小
     public static final int HEADER_SIZE = 80;
 
     static final long ALLOWED_TIME_DRIFT = 2 * 60 * 60; // Same value as Bitcoin Core.
@@ -65,6 +66,7 @@ public class Block extends Message {
      * upgrade everyone to change this, so Bitcoin can continue to grow. For now it exists as an anti-DoS measure to
      * avoid somebody creating a titanically huge but valid block and forcing everyone to download/store it forever.
      */
+    //区块大小
     public static final int MAX_BLOCK_SIZE = 1 * 1000 * 1000;
     /**
      * A "sigop" is a signature verification operation. Because they're expensive we also impose a separate limit on
