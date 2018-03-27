@@ -30,6 +30,8 @@ import java.util.List;
  * 
  * <p>Instances of this class are not safe for use by multiple threads.</p>
  */
+//IRC:Internet Relay Chat	互联网中继聊天
+//addressMessage 
 public class AddressMessage extends Message {
 
     private static final long MAX_ADDRESSES = 1024;
