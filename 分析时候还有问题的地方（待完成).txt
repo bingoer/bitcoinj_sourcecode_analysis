@@ -10,4 +10,4 @@
 			   +	package org.bitcoin.paymentchannel
 			   +	package	org.bitcoin.protocol.payments
 	
-	04.08-
+	04.08-...
