@@ -32,7 +32,10 @@ import static org.bitcoinj.core.Coin.*;
  * This is a little test app that waits for a coin on a local regtest node, then  generates two transactions that double
  * spend the same output and sends them. It's useful for testing double spend codepaths but is otherwise not something
  * you would normally want to do.
+ *lkz
+ *2018-04-1~2018-04-3
  */
+
 public class DoubleSpend {
     public static void main(String[] args) throws Exception {
         BriefLogFormatter.init();

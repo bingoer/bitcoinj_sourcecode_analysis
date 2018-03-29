@@ -29,7 +29,10 @@ import org.bitcoinj.wallet.Wallet;
  * In Bitcoin Improvement Proposal (BIP) 39 and BIP 32 describe the details about hierarchical deterministic wallets and mnemonic sentences
  * https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki
  * https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki
+ *lkz
+ *2018-03-29~2018-03-31
  */
+
 public class BackupToMnemonicSeed {
 
     public static void main(String[] args) {

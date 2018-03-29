@@ -47,7 +47,9 @@ import static org.bitcoinj.core.Coin.CENT;
 
 /**
  * Simple client that connects to the given host, opens a channel, and pays one cent.
- */
+ *lkz
+ *2018-04-6~2018-04-8
+ **/
 public class ExamplePaymentChannelClient {
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(ExamplePaymentChannelClient.class);
     private WalletAppKit appKit;
