@@ -44,6 +44,8 @@ import org.bitcoinj.utils.VersionTally;
  * one for the main network ({@link MainNetParams}), one for the public test network, and two others that are
  * intended for unit testing and local app development purposes. Although this class contains some aliases for
  * them, you are encouraged to call the static get() methods on each specific params class directly.</p>
+ * 网络分为四种：主网、测试网、回归网络和单元测试网
+ * 抽象类NetworkParameters主要是包含了一些与比特币网络打交道需要的数据。
  */
 public abstract class NetworkParameters {
     /**

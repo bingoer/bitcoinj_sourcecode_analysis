@@ -30,6 +30,7 @@ import org.bitcoinj.script.Script.ScriptType;
  * form.
  * </p>
  */
+//抽象的地址类
 public abstract class Address extends PrefixedChecksummedBytes {
     public Address(NetworkParameters params, byte[] bytes) {
         super(params, bytes);
@@ -53,7 +54,8 @@ public abstract class Address extends PrefixedChecksummedBytes {
     public static Address fromString(@Nullable NetworkParameters params, String str)
             throws AddressFormatException {
         try {
-            return LegacyAddress.fromBase58(params, str);
+        		//两种bitcoin地址类型
+        		return LegacyAddress.fromBase58(params, str);
         } catch (AddressFormatException.WrongNetwork x) {
             throw x;
         } catch (AddressFormatException x) {

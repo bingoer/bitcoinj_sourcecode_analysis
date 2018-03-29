@@ -18,6 +18,7 @@
 package org.bitcoinj.core;
 
 @SuppressWarnings("serial")
+//地址主要由 前置固定字符+地址+checksum 三部分组成
 public class AddressFormatException extends IllegalArgumentException {
     public AddressFormatException() {
         super();
@@ -32,6 +33,7 @@ public class AddressFormatException extends IllegalArgumentException {
      * classes when you try to decode data and a character isn't valid. You shouldn't allow the user to proceed in this
      * case.
      */
+    //解析时字符不合法
     public static class InvalidCharacter extends AddressFormatException {
         public final char character;
         public final int position;
@@ -48,6 +50,7 @@ public class AddressFormatException extends IllegalArgumentException {
      * classes when you try to decode data and the data isn't of the right size. You shouldn't allow the user to proceed
      * in this case.
      */
+    //解析时数据长度异常
     public static class InvalidDataLength extends AddressFormatException {
         public InvalidDataLength() {
             super();
@@ -63,6 +66,7 @@ public class AddressFormatException extends IllegalArgumentException {
      * classes when you try to decode data and the checksum isn't valid. You shouldn't allow the user to proceed in this
      * case.
      */
+    //解析时checksum非法
     public static class InvalidChecksum extends AddressFormatException {
         public InvalidChecksum() {
             super("Checksum does not validate");
@@ -78,6 +82,7 @@ public class AddressFormatException extends IllegalArgumentException {
      * address or private key with an invalid prefix (version header or human-readable part). You shouldn't allow the
      * user to proceed in this case.
      */
+    //固定的前置字符串非法
     public static class InvalidPrefix extends AddressFormatException {
         public InvalidPrefix() {
             super();
