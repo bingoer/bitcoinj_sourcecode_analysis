@@ -28,7 +28,7 @@ public interface Monetary extends Serializable {
      * satoshi is worth 1E-8 so this would be 8.
      * 返回最小单元的指数，1e-8 就返回8
      */
-    int smallestUnitExponent()
+    int smallestUnitExponent();
 
     /**
      * Returns the number of "smallest units" of this monetary value. For Bitcoin, this would be the number of satoshis.

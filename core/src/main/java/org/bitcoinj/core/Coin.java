@@ -28,16 +28,19 @@ import static com.google.common.base.Preconditions.checkArgument;
 /**
  * Represents a monetary Bitcoin value. This class is immutable.
  */
+// Coin类，不可改变
 public final class Coin implements Monetary, Comparable<Coin>, Serializable {
 
     /**
      * Number of decimals for one Bitcoin. This constant is useful for quick adapting to other coins because a lot of
      * constants derive from it.
+     * 最小单元指数  1satoshi=1e-8 bitcoin
      */
     public static final int SMALLEST_UNIT_EXPONENT = 8;
 
     /**
      * The number of satoshis equal to one bitcoin.
+     * pow(x,y)表示x的y次方
      */
     private static final long COIN_VALUE = LongMath.pow(10, SMALLEST_UNIT_EXPONENT);
 
@@ -53,16 +56,19 @@ public final class Coin implements Monetary, Comparable<Coin>, Serializable {
 
     /**
      * 0.01 Bitcoins. This unit is not really used much.
+     * cent=0.01bitcoin=1/100 bitcoin
      */
     public static final Coin CENT = COIN.divide(100);
 
     /**
      * 0.001 Bitcoins, also known as 1 mBTC.
+     * millicoin=0.001 bitcoin=1/1000 bitcoin.
      */
     public static final Coin MILLICOIN = COIN.divide(1000);
 
     /**
      * 0.000001 Bitcoins, also known as 1 µBTC or 1 uBTC.
+     * 1 microcoin=1e-6 bitcoin
      */
     public static final Coin MICROCOIN = MILLICOIN.divide(1000);
 
@@ -99,6 +105,7 @@ public final class Coin implements Monetary, Comparable<Coin>, Serializable {
     /**
      * Returns the number of satoshis of this monetary value.
      */
+
     @Override
     public long getValue() {
         return value;
@@ -207,6 +214,7 @@ public final class Coin implements Monetary, Comparable<Coin>, Serializable {
      * Returns true if and only if this instance represents a monetary value greater than zero,
      * otherwise false.
      */
+    //coin的价值为正数
     public boolean isPositive() {
         return signum() == 1;
     }
@@ -243,10 +251,11 @@ public final class Coin implements Monetary, Comparable<Coin>, Serializable {
         return compareTo(other) < 0;
     }
 
+    //coin以satoshi为单位的价值扩大2的n次方倍
     public Coin shiftLeft(final int n) {
         return new Coin(this.value << n);
     }
-
+    //缩小
     public Coin shiftRight(final int n) {
         return new Coin(this.value >> n);
     }
