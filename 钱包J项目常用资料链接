@@ -8,3 +8,6 @@ bitcoinJ官方链接
 
 bitcoin14.6 jar包下载链接
         1.https://search.maven.org/remotecontent?filepath=org/bitcoinj/bitcoinj-core/0.14.6/bitcoinj-core-0.14.6-bundled.jar
+
+The following are  examples for showing how to use org.bitcoinj.core.TransactionConfidence.each example represent one wallet project.
+        1. https://www.programcreek.com/java-api-examples/index.php?api=org.bitcoinj.core.TransactionConfidence
