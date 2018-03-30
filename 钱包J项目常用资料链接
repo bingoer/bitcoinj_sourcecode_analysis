@@ -11,3 +11,13 @@ bitcoin14.6 jar包下载链接
 
 The following are  examples for showing how to use org.bitcoinj.core.TransactionConfidence.each example represent one wallet project.
         1. https://www.programcreek.com/java-api-examples/index.php?api=org.bitcoinj.core.TransactionConfidence
+
+        以下项目均是基于Bitcoinj项目开发的：
+        1.PaymentService   https://www.programcreek.com/java-api-examples/?code=IUNO-TDM/PaymentService/PaymentService-master/
+        2.bitnym           https://www.programcreek.com/java-api-examples/?code=kit-tm/bitnym/bitnym-master/
+        3.okwallet         https://www.programcreek.com/java-api-examples/?code=guodroid/okwallet/okwallet-master
+        4.cryptwallet(大)  https://www.programcreek.com/java-api-examples/?code=Grant-Redmond/cryptwallet/cryptwallet-master/
+        5.lbry-android(大) https://www.programcreek.com/java-api-examples/?code=filipnyquist/lbry-android/lbry-android-master/
+        6.namecoinj(大)    https://www.programcreek.com/java-api-examples/?code=HashEngineering/namecoinj/namecoinj-master/
+        7.coinj-dash(大)   https://www.programcreek.com/java-api-examples/?code=btcsoft/coinj-dash/coinj-dash-master/
+        8.CoinJoin(大)     https://www.programcreek.com/java-api-examples/?code=egordon/CoinJoin/CoinJoin-master/
