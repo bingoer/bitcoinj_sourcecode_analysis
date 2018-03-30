@@ -34,6 +34,7 @@ import java.util.Map;
  * along with the wallet data. In order for a wallet to recreate signer after deserialization, each signer
  * should have no-args constructor</p>
  */
+//对所给交易签名的接口，等待继承。需要wallet主动调用addTransactionSigner(TransactionSigner)方式来对交易签名
 public interface TransactionSigner {
 
     /**
@@ -51,6 +52,7 @@ public interface TransactionSigner {
          * same derivation path and we need to store only one key path per input. As TransactionInput is mutable, inputs
          * are identified by their scriptPubKeys (keys in this map).
          */
+        //分层确定性钱包，来自于BIP32  参考http://8btc.com/article-4569-1.html
         public final Map<Script, List<ChildNumber>> keyPaths;
 
         public ProposedTransaction(Transaction partialTx) {
@@ -82,6 +84,7 @@ public interface TransactionSigner {
      * Returns true if signer is compatible with given transaction (can do something meaningful with it).
      * Otherwise this method returns false
      */
+    //签名交易
     boolean signInputs(ProposedTransaction propTx, KeyBag keyBag);
 
 }

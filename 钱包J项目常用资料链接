@@ -1,0 +1,10 @@
+获取testBTC的网址
+        1. http://tpfaucet.appspot.com/
+        2. https://testnet.manu.backend.hamburg/faucet
+
+bitcoinJ官方链接
+        1.官网 https://bitcoinj.github.io/
+        2.github地址   https://github.com/bitcoinj/bitcoinj
+
+bitcoin14.6 jar包下载链接
+        1.https://search.maven.org/remotecontent?filepath=org/bitcoinj/bitcoinj-core/0.14.6/bitcoinj-core-0.14.6-bundled.jar

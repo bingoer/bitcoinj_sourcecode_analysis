@@ -27,6 +27,7 @@ import wallettemplate.utils.TextFieldValidator;
  * Given a text field, some network params and optionally some nodes, will make the text field an angry red colour
  * if the address is invalid for those params, and enable/disable the nodes.
  */
+//验证bitcoin address
 public class BitcoinAddressValidator {
     private NetworkParameters params;
     private Node[] nodes;
@@ -47,6 +48,7 @@ public class BitcoinAddressValidator {
 
     private void toggleButtons(String current) {
         boolean valid = testAddr(current);
+        //设置节点失效
         for (Node n : nodes) n.setDisable(!valid);
     }
 

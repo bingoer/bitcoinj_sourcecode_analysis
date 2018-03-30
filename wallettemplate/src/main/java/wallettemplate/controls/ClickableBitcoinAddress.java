@@ -55,6 +55,7 @@ import static javafx.beans.binding.Bindings.convert;
  * address looks like a blue hyperlink. Next to it there are two icons, one that copies to the clipboard and another
  * that shows a QRcode.
  */
+//在gui钱包中实现对比特币地址的二维码和复制功能，
 public class ClickableBitcoinAddress extends AnchorPane {
     @FXML protected Label addressLabel;
     @FXML protected ContextMenu addressMenu;

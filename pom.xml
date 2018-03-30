@@ -200,6 +200,13 @@
         <scope>runtime</scope>
         <optional>true</optional>
       </dependency>
+      <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-gpg-plugin -->
+      <dependency>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>1.5</version>
+      </dependency>
+
   </dependencies>
 
   <prerequisites>
@@ -262,9 +269,10 @@
                   </plugin>
 
                   <plugin>
-                      <groupId>org.apache.maven.plugins</groupId>
+                     <groupId>org.apache.maven.plugins</groupId>
                       <artifactId>maven-gpg-plugin</artifactId>
                       <version>1.5</version>
+
                       <executions>
                           <execution>
                               <id>sign-artifacts</id>
