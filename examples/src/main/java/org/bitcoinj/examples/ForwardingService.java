@@ -46,18 +46,15 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * ForwardingService demonstrates basic usage of the library. It sits on the network and when it receives coins, simply
  * sends them onwards to an address given on the command line.
  */
-
-/*
- * bingoer
- * 2018-03-30
- * bitcoinj可以导出成jar包，
+/**该demo实验了该bitcoinj库的基本用法.
  * 如果运行的是本地网络regtest，那么本地必须有现成的比特币节点在运行，用bitcoind -regtest.
  * 基本流程是：1.解析出网络类型和比特币地址.
  * */
 public class ForwardingService {
     private static Address forwardingAddress;
     private static WalletAppKit kit;
-    //args[0]： address，args[1]：网络类型.   不同的网络类型的地址格式并不是一样的。
+    //args[0]：address，
+    // args[1]：网络类型.   不同的网络类型的地址格式并不是一样的。
     public static void main(String[] args) throws Exception {
         // This line makes the log output more compact and easily read, especially when using the JDK log adapter.
 
@@ -92,21 +89,26 @@ public class ForwardingService {
         kit = new WalletAppKit(params, new File("."), filePrefix);
 
         if (params == RegTestParams.get()) {
+            //回归测试网络是专门用来测试和开发的，需要本地启动比特节点的回归测试网
             // Regression test mode is designed for testing and development only, so there's no public network for it.
             // If you pick this mode, you're expected to be running a local "bitcoind -regtest" instance.
+            //连接到本地启动的bitcoind -regtest
             kit.connectToLocalHost();
         }
 
         // Download the block chain and wait until it's done.
+        //更新并等待区块更新结束。
         kit.startAsync();
         kit.awaitRunning();
 
         // We want to know when we receive money.
+        //为该钱包设置一个收币监听器
         kit.wallet().addCoinsReceivedEventListener(new WalletCoinsReceivedEventListener() {
             @Override
             public void onCoinsReceived(Wallet w, Transaction tx, Coin prevBalance, Coin newBalance) {
                 // Runs in the dedicated "user thread" (see bitcoinj docs for more info on this).
                 // The transaction "tx" can either be pending, or included into a block (we didn't see the broadcast).
+                //计算发送了多少coin到这个钱包(地址)
                 Coin value = tx.getValueSentToMe(w);
                 System.out.println("Received tx for " + value.toFriendlyString() + ": " + tx);
                 System.out.println("Transaction will be forwarded after it confirms.");
@@ -120,6 +122,7 @@ public class ForwardingService {
                     @Override
                     public void onSuccess(TransactionConfidence result) {
                         System.out.println("Confirmation received.");
+                        //已经确认交易，转发该交易
                         forwardCoins(tx);
                     }
                     @Override
@@ -131,6 +134,8 @@ public class ForwardingService {
             }
         });
 
+        //LegacyAddress 可以理解成老的比特币地址，新老比特币的地址形式有区别。
+        //它是由经过椭圆曲线加密之后的公钥外加一些网络参数在编码之后形成的
         Address sendToAddress = LegacyAddress.fromKey(params, kit.wallet().currentReceiveKey());
         System.out.println("Send coins to: " + sendToAddress);
         System.out.println("Waiting for coins to arrive. Press Ctrl-C to quit.");
