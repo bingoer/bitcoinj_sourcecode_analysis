@@ -46,12 +46,21 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * ForwardingService demonstrates basic usage of the library. It sits on the network and when it receives coins, simply
  * sends them onwards to an address given on the command line.
  */
+
+/*
+ * bingoer
+ * 2018-03-30
+ * bitcoinj可以导出成jar包，
+ * 如果运行的是本地网络regtest，那么本地必须有现成的比特币节点在运行，用bitcoind -regtest.
+ * 基本流程是：1.解析出网络类型和比特币地址.
+ * */
 public class ForwardingService {
     private static Address forwardingAddress;
     private static WalletAppKit kit;
-
+    //args[0]： address，args[1]：网络类型.   不同的网络类型的地址格式并不是一样的。
     public static void main(String[] args) throws Exception {
         // This line makes the log output more compact and easily read, especially when using the JDK log adapter.
+
         BriefLogFormatter.init();
         if (args.length < 1) {
             System.err.println("Usage: address-to-send-back-to [regtest|testnet]");
@@ -61,6 +70,7 @@ public class ForwardingService {
         // Figure out which network we should connect to. Each one gets its own set of files.
         NetworkParameters params;
         String filePrefix;
+        //获取网络类型
         if (args.length > 1 && args[1].equals("testnet")) {
             params = TestNet3Params.get();
             filePrefix = "forwarding-service-testnet";
@@ -72,6 +82,7 @@ public class ForwardingService {
             filePrefix = "forwarding-service";
         }
         // Parse the address given as the first parameter.
+        //解析地址
         forwardingAddress = LegacyAddress.fromBase58(params, args[0]);
 
         System.out.println("Network: " + params.getId());
@@ -95,7 +106,6 @@ public class ForwardingService {
             @Override
             public void onCoinsReceived(Wallet w, Transaction tx, Coin prevBalance, Coin newBalance) {
                 // Runs in the dedicated "user thread" (see bitcoinj docs for more info on this).
-                //
                 // The transaction "tx" can either be pending, or included into a block (we didn't see the broadcast).
                 Coin value = tx.getValueSentToMe(w);
                 System.out.println("Received tx for " + value.toFriendlyString() + ": " + tx);
@@ -112,7 +122,6 @@ public class ForwardingService {
                         System.out.println("Confirmation received.");
                         forwardCoins(tx);
                     }
-
                     @Override
                     public void onFailure(Throwable t) {
                         // This kind of future can't fail, just rethrow in case something weird happens.

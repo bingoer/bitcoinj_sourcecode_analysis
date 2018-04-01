@@ -71,7 +71,7 @@ public class Kit {
 		// .org/en/developer-examples#testing-applications
 
 		//Test
-		//配置网络，使用testnet测试网
+		//获取测试化实例，使用testnet测试网
 		NetworkParameters params = TestNet3Params.get();
 
 		// Now we initialize a new WalletAppKit. The kit handles all the boilerplate for us and is the easiest way to

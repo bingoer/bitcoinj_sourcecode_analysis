@@ -45,13 +45,16 @@ import java.util.List;
  */
 public class PeerMonitor {
     private NetworkParameters params;
+    //PeerGroup implements TransactionBroadcaster
     private PeerGroup peerGroup;
     private PeerTableModel peerTableModel;
     private PeerTableRenderer peerTableRenderer;
 
-    private final HashMap<Peer, String> reverseDnsLookups = new HashMap<Peer, String>();
+    private final HashMap<Peer, String> reverseDnsLookups =
+			new HashMap<Peer, String>();
 
     public static void main(String[] args) throws Exception {
+    	//日志格式
         BriefLogFormatter.init();
         new PeerMonitor();
     }
@@ -63,7 +66,9 @@ public class PeerMonitor {
     }
 
     private void setupNetwork() {
+    	//获取主网instance
         params = MainNetParams.get();
+        //实例化PeerGroup,设置相关属性
         peerGroup = new PeerGroup(params, null /* no chain */);
         peerGroup.setUserAgent("PeerMonitor", "1.0");
         peerGroup.setMaxConnections(4);
@@ -91,7 +96,8 @@ public class PeerMonitor {
             @Override
             public void run() {
                 // This can take a looooong time.
-                String reverseDns = peer.getAddress().getAddr().getCanonicalHostName();
+                String reverseDns = peer.getAddress().
+						getAddr().getCanonicalHostName();
                 synchronized (reverseDnsLookups) {
                     reverseDnsLookups.put(peer, reverseDns);
                 }

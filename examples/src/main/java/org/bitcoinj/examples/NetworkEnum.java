@@ -24,10 +24,10 @@ import org.bitcoinj.params.TestNet3Params;
 
 public enum NetworkEnum {
     MAIN,
-    PROD, // alias for MAIN
-    TEST,
-    REGTEST;
-
+    PROD, // alias for MAIN主网的别名
+    TEST,   //测试网络
+    REGTEST; //本地网络
+    //默认返回本地网络
     public NetworkParameters get() {
         switch(this) {
             case MAIN:

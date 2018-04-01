@@ -75,12 +75,13 @@ public class PeerGroup implements TransactionBroadcaster {
     private long requiredServices = 0;
     /**
      * The default number of connections to the p2p network the library will try to build. This is set to 12 empirically.
-     * It used to be 4, but because we divide the connection pool in two for broadcasting transactions, that meant we
+     * It used to be 4, but because we divide the connection pool(连接池) in two for broadcasting transactions, that meant we
      * were only sending transactions to two peers and sometimes this wasn't reliable enough: transactions wouldn't
      * get through.
      */
     public static final int DEFAULT_CONNECTIONS = 12;
     private volatile int vMaxPeersToDiscoverCount = 100;
+    //默认节点发现超时时间设置为5秒
     private static final long DEFAULT_PEER_DISCOVERY_TIMEOUT_MILLIS = 5000;
     private volatile long vPeerDiscoveryTimeoutMillis = DEFAULT_PEER_DISCOVERY_TIMEOUT_MILLIS;
 
@@ -104,6 +105,7 @@ public class PeerGroup implements TransactionBroadcaster {
     @GuardedBy("lock") private final Map<PeerAddress, ExponentialBackoff> backoffMap;
 
     // Currently active peers. This is an ordered list rather than a set to make unit tests predictable.
+	//节点有三种连接状态：已连接、正在连接和没有连接。
     private final CopyOnWriteArrayList<Peer> peers;
     // Currently connecting peers.
     private final CopyOnWriteArrayList<Peer> pendingPeers;
