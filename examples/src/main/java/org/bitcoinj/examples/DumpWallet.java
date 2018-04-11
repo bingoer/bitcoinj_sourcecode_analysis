@@ -21,12 +21,14 @@ import java.io.File;
 import org.bitcoinj.wallet.Wallet;
 
 /**
+ * 这是备份钱包的demo,但只实现了导入序列化后的钱包并输出序列化的内容
  * DumpWallet loads a serialized wallet and prints information about what it contains.
  * lkz
  *2018-04-4~2018-04-5
  */
 public class DumpWallet {
     public static void main(String[] args) throws Exception {
+        //args[0]  ：钱包文件的路径
         if (args.length != 1) {
             System.out.println("Usage: java DumpWallet <filename>");
             return;

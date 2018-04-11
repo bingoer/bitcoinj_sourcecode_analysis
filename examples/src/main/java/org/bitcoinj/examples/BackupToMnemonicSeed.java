@@ -23,6 +23,7 @@ import org.bitcoinj.wallet.DeterministicSeed;
 import org.bitcoinj.wallet.Wallet;
 
 /**
+ * 分层确定性钱包：常见的注入imtoken钱包就是采用这种方式，由原始的种子（一串单词）生成一系列的seed树。
  * The following example shows you how to create a deterministic seed from a hierarchical deterministic wallet represented as a mnemonic code.
  * This seed can be used to fully restore your wallet. The RestoreFromSeed.java example shows how to load the wallet from this seed.
  * 

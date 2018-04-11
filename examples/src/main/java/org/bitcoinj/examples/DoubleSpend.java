@@ -29,15 +29,16 @@ import java.io.File;
 import static org.bitcoinj.core.Coin.*;
 
 /**
+ * 测试双花问题的demo，用同一笔钱同时创建两笔交易并花掉它。
  * This is a little test app that waits for a coin on a local regtest node, then  generates two transactions that double
  * spend the same output and sends them. It's useful for testing double spend codepaths but is otherwise not something
  * you would normally want to do.
  *lkz
  *2018-04-1~2018-04-3
  */
-
 public class DoubleSpend {
     public static void main(String[] args) throws Exception {
+        //以下代码设置钱包相关信息
         BriefLogFormatter.init();
         final RegTestParams params = RegTestParams.get();
         WalletAppKit kit = new WalletAppKit(params, new File("."), "doublespend");
@@ -47,8 +48,9 @@ public class DoubleSpend {
         kit.awaitRunning();
 
         System.out.println(kit.wallet());
-
+        //查询可用余额
         kit.wallet().getBalanceFuture(COIN, Wallet.BalanceType.AVAILABLE).get();
+        //生成交易并注册监听器
         Transaction tx1 = kit.wallet().createSend(LegacyAddress.fromBase58(params, "muYPFNCv7KQEG2ZLM7Z3y96kJnNyXJ53wm"), CENT);
         Transaction tx2 = kit.wallet().createSend(LegacyAddress.fromBase58(params, "muYPFNCv7KQEG2ZLM7Z3y96kJnNyXJ53wm"), CENT.add(SATOSHI.multiply(10)));
         final Peer peer = kit.peerGroup().getConnectedPeers().get(0);
@@ -61,6 +63,7 @@ public class DoubleSpend {
                 }
             }
         );
+        //同时发送基于这一笔钱构造的两笔交易
         peer.sendMessage(tx1);
         peer.sendMessage(tx2);
 
