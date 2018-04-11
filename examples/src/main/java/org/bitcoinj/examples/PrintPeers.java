@@ -42,6 +42,7 @@ import java.util.concurrent.TimeUnit;
  * Prints a list of IP addresses obtained from DNS.
  */
 public class PrintPeers {
+    //InetSocketAddress socket的格式是ip+port
     private static InetSocketAddress[] dnsPeers;
 
     private static void printElapsed(long start) {
@@ -49,6 +50,9 @@ public class PrintPeers {
         System.out.println(String.format("Took %.2f seconds", (now - start) / 1000.0));
     }
 
+    /**
+     * 打印所有节点的ip和port
+     * */
     private static void printPeers(InetSocketAddress[] addresses) {
         for (InetSocketAddress address : addresses) {
             String hostAddress = address.getAddress().getHostAddress();
@@ -56,6 +60,12 @@ public class PrintPeers {
         }
     }
 
+    /**
+     *
+     * 一般常用的有三种dnsSeed、httpSeed、addrSeeds.这三种都可以获取到比特币的节点列表。
+     * dnsSeed返回的是拥有全部节点ip地址的dns服务器，用来发现节点。
+     * 该函数打印DNS发现的节点信息
+     * */
     private static void printDNS() throws PeerDiscoveryException {
         long start = System.currentTimeMillis();
         DnsDiscovery dns = new DnsDiscovery(MainNetParams.get());
@@ -69,7 +79,7 @@ public class PrintPeers {
         System.out.println("=== DNS ===");
         printDNS();
         System.out.println("=== Version/chain heights ===");
-
+        //InetAddress是ip地址：有32位和128位(IPV6)
         ArrayList<InetAddress> addrs = new ArrayList<InetAddress>();
         for (InetSocketAddress peer : dnsPeers) addrs.add(peer.getAddress());
         System.out.println("Scanning " + addrs.size() + " peers:");
@@ -78,6 +88,7 @@ public class PrintPeers {
         final Object lock = new Object();
         final long[] bestHeight = new long[1];
 
+        //接下来尝试去连接dns发现的所有节点，并注册连接上和断开时的监听器。
         List<ListenableFuture<Void>> futures = Lists.newArrayList();
         NioClientManager clientManager = new NioClientManager();
         for (final InetAddress addr : addrs) {
